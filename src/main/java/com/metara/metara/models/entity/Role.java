@@ -1,5 +1,6 @@
 package com.metara.metara.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class Role {
 
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private Set<User> users;
 
     public Long getId() {
