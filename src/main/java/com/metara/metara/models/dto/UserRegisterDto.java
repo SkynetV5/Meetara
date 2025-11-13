@@ -6,19 +6,19 @@ import jakarta.validation.constraints.NotBlank;
 
 
 
-@Schema(description = "Dane potrzebne do rejestracji użytkownika")
+@Schema(description = "Data requires to register user ")
 public class UserRegisterDto {
 
-    @Schema(description = "Adres e-mail użytkownika", example = "string@example.com")
+    @Schema(description = "Email Adress", example = "string@example.com")
     @Email
     @NotBlank
     private String email;
 
-    @Schema(description = "Nazwa użytkownika", example = "string")
+    @Schema(description = "Username", example = "string")
     @NotBlank
     private String username;
 
-    @Schema(description = "Hasło użytkownika", example = "string")
+    @Schema(description = "Password", example = "string")
     @NotBlank
     private String password;
 

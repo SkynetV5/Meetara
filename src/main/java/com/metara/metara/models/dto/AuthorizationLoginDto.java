@@ -8,22 +8,22 @@ import jakarta.validation.constraints.NotBlank;
 public class AuthorizationLoginDto {
 
 
-    @Schema(description = "Adres e-mail użytkownika", example = "string@example.com")
-    @Email
+    @Schema(description = "Username", example = "string")
+
     @NotBlank
-    private String email;
+    private String username;
 
 
-    @Schema(description = "Hasło użytkownika", example = "string")
+    @Schema(description = "Password", example = "string")
     @NotBlank
     private String password;
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 

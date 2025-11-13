@@ -34,25 +34,6 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-    // AUTHORIZATION
-
-    public User authorizeUser(String email, String password) {
-        Optional<User> userOpt = userRepository.findByEmail(email);
-
-        if (userOpt.isEmpty()) {
-            throw new RuntimeException("User not found");
-        }
-
-        User user = userOpt.get();
-
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
-        }
-
-        return user;
-    }
-
     // CREATE
     public User createUser(User user){
         validateUserData(user);
@@ -71,6 +52,7 @@ public class UserService {
         User user = new User();
         user.setEmail(email);
         user.setUsername(username);
+        user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(password));
 
         Role userRole = roleRepository.findByName("USER").orElseThrow(() -> new RuntimeException("Default role not found"));

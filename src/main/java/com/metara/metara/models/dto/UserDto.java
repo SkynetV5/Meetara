@@ -1,46 +1,48 @@
-package com.metara.metara.models.entity;
+package com.metara.metara.models.dto;
 
+
+import com.metara.metara.models.entity.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Entity
-@Table(name="users")
+@Schema(description = "Data requires to create user")
+public class UserDto {
 
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String username;
-
-
-    @Column(nullable = false, unique = true)
+    @Schema(description = "Email Adress", example = "string@example.com")
+    @Email
+    @NotBlank
     private String email;
 
-    @Column(nullable = false)
+    @Schema(description = "Username", example = "string")
+    @NotBlank
+    private String username;
+
+    @Schema(description = "Password", example = "string")
+    @NotBlank
     private String password;
 
-    private boolean enabled = false;
+    @Schema(description = "Enabled", example = "true")
+    @NotBlank
+    private boolean enabled;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Schema(description = "Created at")
+    @NotBlank
+    private LocalDateTime createdAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role>roles;
+    @Schema(description = "User Roles")
+    @NotBlank
+    private Set<Role> roles;
 
-
-
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {
@@ -49,14 +51,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
