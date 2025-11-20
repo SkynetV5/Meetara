@@ -15,7 +15,7 @@ public class Profile {
     private String phoneNumber;
 
     @OneToOne
-    @JoinColumn(name="unser_id", nullable = false)
+    @JoinColumn(name="user_id", nullable = false)
     private User user;
 
     public Long getId() {
