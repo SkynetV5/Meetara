@@ -14,6 +14,10 @@ public interface EventRepository extends JpaRepository<Event,Long>{
             LocalDateTime now,
             String keyword
     );
+    List<Event> findByEventDateBeforeAndTitleContainingIgnoreCase(
+            LocalDateTime now,
+            String keyword
+    );
 
     Optional<Event> findByTitle(String title);
     Optional<Event> findByLocation(String location);
@@ -21,8 +25,13 @@ public interface EventRepository extends JpaRepository<Event,Long>{
     Optional<Event> findByUserId(Long userId);
 
     List<Event> findByEventDateAfter(LocalDateTime now);
+    List<Event> findByEventDateBefore(LocalDateTime now);
     List<Event> findByTitleContainingIgnoreCase(String keyword);
     List<Event> findByEventDateAfterOrderByEventDateAsc(LocalDateTime now);
+    List<Event> findByEventDateAfterOrderByEventDateDesc(LocalDateTime now);
 
+    List<Event> findByEventDateBeforeOrderByEventDateAsc(LocalDateTime now);
+    List<Event> findByEventDateBeforeOrderByEventDateDesc(LocalDateTime now);
     Page<Event> findByEventDateAfter(LocalDateTime now, Pageable pageable);
+    Page<Event> findByEventDateBefore(LocalDateTime now, Pageable pageable);
 }
