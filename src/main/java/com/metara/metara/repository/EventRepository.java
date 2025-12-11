@@ -10,6 +10,13 @@ import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event,Long>{
 
+
+
+    List<Event> findByTitle(String title);
+    List<Event> findByLocation(String location);
+
+    Optional<Event> findByUserId(Long userId);
+
     List<Event> findByEventDateAfterAndTitleContainingIgnoreCase(
             LocalDateTime now,
             String keyword
@@ -18,11 +25,6 @@ public interface EventRepository extends JpaRepository<Event,Long>{
             LocalDateTime now,
             String keyword
     );
-
-    Optional<Event> findByTitle(String title);
-    Optional<Event> findByLocation(String location);
-
-    Optional<Event> findByUserId(Long userId);
 
     List<Event> findByEventDateAfter(LocalDateTime now);
     List<Event> findByEventDateBefore(LocalDateTime now);

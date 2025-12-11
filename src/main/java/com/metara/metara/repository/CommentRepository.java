@@ -11,17 +11,14 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
 
-    Optional<Comment> findByCreatedAt(LocalDateTime date);
-
-    Optional<Comment> findByUserId(Long userId);
-    Optional<Comment> findByEventId(Long eventId);
-
-    List<Comment> findByCreatedAtBeforeOrderByCreatedAtAsc(LocalDateTime now);
-    List<Comment> findByCreatedAtBeforeOrderByCreatedAtDesc(LocalDateTime now);
-    List<Comment> findByCreatedAtAfterOrderByCreatedAtAsc(LocalDateTime now);
-    List<Comment> findByCreatedAtAfterOrderByCreatedAtDesc(LocalDateTime now);
+    List<Comment> findByCreatedAtBeforeOrderByTextAsc(LocalDateTime now);
+    List<Comment> findByCreatedAtBeforeOrderByTextDesc(LocalDateTime now);
+    List<Comment> findByCreatedAtAfterOrderByTextAsc(LocalDateTime now);
+    List<Comment> findByCreatedAtAfterOrderByTextDesc(LocalDateTime now);
 
     List<Comment> findAllByEventId(Long eventId);
     List<Comment> findAllByUserId(Long userId);
+
+    List<Comment> findAllByCreatedAt(LocalDateTime date);
 
 }

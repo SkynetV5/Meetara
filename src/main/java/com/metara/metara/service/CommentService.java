@@ -17,12 +17,6 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
 
-    @Autowired
-    private EventService eventService;
-
-    @Autowired
-    private UserService userService;
-
 
     //CREATE
     public Comment createComment(Comment comment){
@@ -37,28 +31,21 @@ public class CommentService {
     public Optional<Comment> getCommentById(Long id) { return commentRepository.findById(id);}
 
     public Comment getCommentByIdOrThrow(Long id){
-        return commentRepository.findById(id).orElseThrow(() -> new RuntimeException("Profile not found with id" + id));
+        return commentRepository.findById(id).orElseThrow(() -> new RuntimeException("Comment not found with id" + id));
     }
 
-    public Optional<Comment> getCommentByUserId(Long userId){
-        return commentRepository.findByUserId(userId);
-    }
-    public Optional<Comment> getCommentByEventId(Long eventId){
-        return commentRepository.findByEventId(eventId);
-    }
-    public Optional<Comment> getCommentByCreatedAt(LocalDateTime localDateTime){
-        return commentRepository.findByCreatedAt(localDateTime);
-    }
+
 
     public List<Comment> getAllComments() {return commentRepository.findAll();}
 
     public List<Comment> getAllCommentsByEventId(Long eventId) { return commentRepository.findAllByEventId(eventId);}
     public List<Comment> getAllCommentsByUserId(Long userId) { return commentRepository.findAllByUserId(userId);}
 
-    public List<Comment> findByCreatedAtBeforeOrderByCreatedAtAsc(LocalDateTime now) { return commentRepository.findByCreatedAtBeforeOrderByCreatedAtAsc(now);}
-    public List<Comment> findByCreatedAtBeforeOrderByCreatedAtDesc(LocalDateTime now) { return commentRepository.findByCreatedAtBeforeOrderByCreatedAtDesc(now);}
-    public List<Comment> findByCreatedAtAfterOrderByCreatedAtAsc(LocalDateTime now) { return commentRepository.findByCreatedAtAfterOrderByCreatedAtAsc(now);}
-    public List<Comment> findByCreatedAtAfterOrderByCreatedAtDesc(LocalDateTime now) { return commentRepository.findByCreatedAtAfterOrderByCreatedAtDesc(now);}
+    public List<Comment> getAllCommentsByCreatedAt(LocalDateTime date) { return commentRepository.findAllByCreatedAt(date);}
+    public List<Comment> findByCreatedAtBeforeOrderByTextAsc(LocalDateTime now) { return commentRepository.findByCreatedAtBeforeOrderByTextAsc(now);}
+    public List<Comment> findByCreatedAtBeforeOrderByTextDesc(LocalDateTime now) { return commentRepository.findByCreatedAtBeforeOrderByTextDesc(now);}
+    public List<Comment> findByCreatedAtAfterOrderByTextAsc(LocalDateTime now) { return commentRepository.findByCreatedAtAfterOrderByTextAsc(now);}
+    public List<Comment> findByCreatedAtAfterOrderByTextDesc(LocalDateTime now) { return commentRepository.findByCreatedAtAfterOrderByTextDesc(now);}
 
     //UPDATE
 
