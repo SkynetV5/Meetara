@@ -6,11 +6,13 @@ import com.metara.metara.models.entity.User;
 import com.metara.metara.repository.RoleRepository;
 import com.metara.metara.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Locale;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -32,6 +34,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MessageSource messageSource;
 
 
     // CREATE
@@ -190,18 +195,18 @@ public class UserService {
 
     // VALIDATION
 
-    private void validateUserData(User user){
+    private void validateUserData(User user, Locale locale){
         if (user.getEmail() == null || user.getEmail().isEmpty()){
-            throw new RuntimeException("Email is required");
+            throw new RuntimeException(messageSource.getMessage("validation.email.required", null, locale));
         }
         if (user.getUsername() == null || user.getUsername().isEmpty()) {
-            throw new RuntimeException("Username is required");
+            throw new RuntimeException(messageSource.getMessage("validation.username.required", null, locale));
         }
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new RuntimeException(messageSource.getMessage("validation.email.exists", null, locale));
         }
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new RuntimeException(messageSource.getMessage("validation.username.exists", null, locale));
         }
     }
 

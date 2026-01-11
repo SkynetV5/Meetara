@@ -11,15 +11,15 @@ public class UserRegisterDto {
 
     @Schema(description = "Email Adress", example = "string@example.com")
     @Email
-    @NotBlank
+    @NotBlank(message = "{validation.email.required}")
     private String email;
 
     @Schema(description = "Username", example = "string")
-    @NotBlank
+    @NotBlank(message = "{validation.username.required}")
     private String username;
 
     @Schema(description = "Password", example = "string")
-    @NotBlank
+    @NotBlank(message = "{validation.password.required}")
     private String password;
 
     public String getEmail() {
