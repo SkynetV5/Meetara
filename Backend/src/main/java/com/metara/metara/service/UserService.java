@@ -195,7 +195,10 @@ public class UserService {
 
     // VALIDATION
 
-    private void validateUserData(User user, Locale locale){
+    private void validateUserData(User user){
+
+        Locale locale = new Locale("pl");
+
         if (user.getEmail() == null || user.getEmail().isEmpty()){
             throw new RuntimeException(messageSource.getMessage("validation.email.required", null, locale));
         }

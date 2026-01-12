@@ -93,38 +93,38 @@ public class CommentController {
 
     @Operation(summary = "Get comments by Created at")
     @GetMapping("/createdAt/{createdAt}")
-    public ResponseEntity<?> getCommentsByCreatedAt(@Parameter(description = "CreatedAt") @PathVariable LocalDateTime date){
+    public ResponseEntity<?> getCommentsByCreatedAt(@Parameter(description = "CreatedAt") @PathVariable("createdAt") LocalDateTime createdAt){
 
-        List<Comment> comments = commentService.getAllCommentsByCreatedAt(date);
+        List<Comment> comments = commentService.getAllCommentsByCreatedAt(createdAt);
         return ResponseEntity.ok(comments);
 
     }
 
     @Operation(summary = "Get comment Before created at ordered by text asc")
     @GetMapping("/before/createdAt/orderByText/asc/{createdAt}")
-    public ResponseEntity<?> getCommentsBeforeCreatedAtOrderedByTextAsc(@Parameter(description = "CreatedAt") @PathVariable LocalDateTime date){
-        List<Comment> comments = commentService.findByCreatedAtBeforeOrderByTextAsc(date);
+    public ResponseEntity<?> getCommentsBeforeCreatedAtOrderedByTextAsc(@Parameter(description = "CreatedAt") @PathVariable("createdAt") LocalDateTime createdAt){
+        List<Comment> comments = commentService.findByCreatedAtBeforeOrderByTextAsc(createdAt);
         return ResponseEntity.ok(comments);
     }
 
     @Operation(summary = "Get comment Before created at ordered by text desc")
     @GetMapping("/before/createdAt/orderByText/desc/{createdAt}")
-    public ResponseEntity<?> getCommentsBeforeCreatedAtOrderedByTextDesc(@Parameter(description = "CreatedAt") @PathVariable LocalDateTime date){
-        List<Comment> comments = commentService.findByCreatedAtBeforeOrderByTextDesc(date);
+    public ResponseEntity<?> getCommentsBeforeCreatedAtOrderedByTextDesc(@Parameter(description = "CreatedAt") @PathVariable("createdAt") LocalDateTime createdAt){
+        List<Comment> comments = commentService.findByCreatedAtBeforeOrderByTextDesc(createdAt);
         return ResponseEntity.ok(comments);
     }
 
     @Operation(summary = "Get comment After created at ordered by text asc")
     @GetMapping("/after/createdAt/orderByText/asc/{createdAt}")
-    public ResponseEntity<?> getCommentsAfterCreatedAtOrderedByTextAsc(@Parameter(description = "CreatedAt") @PathVariable LocalDateTime date){
-        List<Comment> comments = commentService.findByCreatedAtAfterOrderByTextAsc(date);
+    public ResponseEntity<?> getCommentsAfterCreatedAtOrderedByTextAsc(@Parameter(description = "CreatedAt") @PathVariable("createdAt") LocalDateTime createdAt){
+        List<Comment> comments = commentService.findByCreatedAtAfterOrderByTextAsc(createdAt);
         return ResponseEntity.ok(comments);
     }
 
     @Operation(summary = "Get comment After created at ordered by text desc")
     @GetMapping("/after/createdAt/orderByText/desc/{createdAt}")
-    public ResponseEntity<?> getCommentsAfterCreatedAtOrderedByTextDesc(@Parameter(description = "CreatedAt") @PathVariable LocalDateTime date){
-        List<Comment> comments = commentService.findByCreatedAtAfterOrderByTextDesc(date);
+    public ResponseEntity<?> getCommentsAfterCreatedAtOrderedByTextDesc(@Parameter(description = "CreatedAt") @PathVariable("createdAt") LocalDateTime createdAt){
+        List<Comment> comments = commentService.findByCreatedAtAfterOrderByTextDesc(createdAt);
         return ResponseEntity.ok(comments);
     }
 
