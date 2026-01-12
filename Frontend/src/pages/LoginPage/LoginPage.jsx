@@ -7,6 +7,7 @@ import {
   Typography,
   CircularProgress,
   Alert,
+  Link,
 } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -33,15 +34,14 @@ export default function LoginPage() {
       return;
     }
 
-    const result = await login(username, password);
-
-    if (!result.success) {
-      if (result.error.includes("404")) {
-        setLocalError("Nie znaleziono użytkownika");
-        return;
-      }
+    try {
+      await login(username, password);
+      navigate("/");
+    } catch (error) {
+      setLocalError(
+        error.response?.data?.error || "Nieprawidłowe hasło bądź login!"
+      );
     }
-    navigate("/");
   };
 
   return (
@@ -86,14 +86,14 @@ export default function LoginPage() {
         {/* Errors */}
         {(localError || error) && (
           <Alert severity="error" sx={{ mb: 2 }} variant="outlined">
-            {localError || error}
+            {localError || error?.response?.data?.error}
           </Alert>
         )}
 
         {/* Form */}
         <Box component="form" onSubmit={handleSubmit}>
           <TextField
-            label="Login"
+            label="Nazwa użytkownika"
             fullWidth
             margin="normal"
             value={username}
@@ -126,7 +126,15 @@ export default function LoginPage() {
           </Button>
         </Box>
 
-        {/* Footer */}
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          align="start"
+          sx={{ mt: 3 }}
+        >
+          Nie masz konta? <Link href="/register">Zarejestruj się</Link>
+        </Typography>
+
         <Typography
           variant="body2"
           color="text.secondary"

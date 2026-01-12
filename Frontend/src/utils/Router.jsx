@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Title from "../components/Title/Title.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import LoginPage from "../pages/LoginPage/LoginPage.jsx";
+import RegisterPage from "../pages/RegisterPage/RegisterPage.jsx";
 export default function Router() {
   const { pathname } = useLocation();
   const ScrollOnTop = () => {
@@ -28,7 +29,14 @@ export default function Router() {
           </Title>
         }
       />
-      <Route path="/register" element={<Title title="Rejestracja"></Title>} />
+      <Route
+        path="/register"
+        element={
+          <Title title="Rejestracja">
+            <RegisterPage />
+          </Title>
+        }
+      />
     </Routes>
   );
 }
