@@ -5,6 +5,10 @@ import Title from "../components/Title/Title.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import LoginPage from "../pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "../pages/RegisterPage/RegisterPage.jsx";
+import DashboardPage from "../pages/Dashboard/Dashboard.jsx";
+import AppLayout from "../layouts/AppLayout.jsx";
+import EventsPage from "../pages/EventsPage/EventsPage.jsx";
+import AddEventPage from "../pages/AddEventPage/AddEventPage.jsx";
 export default function Router() {
   const { pathname } = useLocation();
   const ScrollOnTop = () => {
@@ -18,7 +22,32 @@ export default function Router() {
   return (
     <Routes>
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Title title="Dashboard"></Title>} />
+        <Route element={<AppLayout />}>
+          <Route
+            path="/"
+            element={
+              <Title title="Dashboard">
+                <DashboardPage />
+              </Title>
+            }
+          />
+          <Route
+            path="/events"
+            element={
+              <Title title="Wydarzenia">
+                <EventsPage />
+              </Title>
+            }
+          />
+          <Route
+            path="/event/add"
+            element={
+              <Title title="Wydarzenia">
+                <AddEventPage />
+              </Title>
+            }
+          />
+        </Route>
       </Route>
       //Login and Register routes
       <Route

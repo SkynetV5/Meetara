@@ -23,6 +23,7 @@ export default function RegisterPage() {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [localError, setLocalError] = useState(null);
   const [isRegisterSuccesfully, setIsRegisterSuccesfully] = useState(false);
+  const navigate = useNavigate();
 
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
@@ -190,6 +191,7 @@ export default function RegisterPage() {
                 variant="contained"
                 sx={{ mt: 3 }}
                 disabled={isLoading}
+                onClick={() => navigate("/login")}
               >
                 Zaloguj się
               </Button>
