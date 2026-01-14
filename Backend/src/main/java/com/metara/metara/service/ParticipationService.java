@@ -39,7 +39,7 @@ public class ParticipationService {
         return participationRepository.findByUserId(userId);
     }
 
-    public Optional<Participation> getParticipationByEventId(Long eventId) {
+    public List<Participation> getParticipationByEventId(Long eventId) {
         return participationRepository.findByEventId(eventId);
     }
 

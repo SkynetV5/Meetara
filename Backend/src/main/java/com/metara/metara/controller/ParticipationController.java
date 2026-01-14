@@ -63,10 +63,9 @@ public class ParticipationController {
     }
 
     @GetMapping("/event/{eventId}")
-    public ResponseEntity<Participation> getParticipationByEventId(@PathVariable Long eventId) {
-        Optional<Participation> participation = participationService.getParticipationByEventId(eventId);
-        return participation.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<List<Participation>> getParticipationByEventId(@PathVariable Long eventId) {
+        List<Participation> participations = participationService.getParticipationByEventId(eventId);
+        return ResponseEntity.ok(participations);
     }
 
     @GetMapping("/status/{status}")

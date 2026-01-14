@@ -26,8 +26,16 @@ public class Event {
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private Set<Comment> comments;
+
+    @OneToMany(
+            mappedBy = "event",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<Participation> participations;
 
     public Long getId() {
         return id;
@@ -83,5 +91,13 @@ public class Event {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Set<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(Set<Participation> participations) {
+        this.participations = participations;
     }
 }

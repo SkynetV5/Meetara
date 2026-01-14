@@ -9,6 +9,7 @@ import DashboardPage from "../pages/Dashboard/Dashboard.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import EventsPage from "../pages/EventsPage/EventsPage.jsx";
 import AddEventPage from "../pages/AddEventPage/AddEventPage.jsx";
+import EventDetailsPage from "../pages/EventDetailsPage/EventDetailsPage.jsx";
 export default function Router() {
   const { pathname } = useLocation();
   const ScrollOnTop = () => {
@@ -44,6 +45,14 @@ export default function Router() {
             element={
               <Title title="Wydarzenia">
                 <AddEventPage />
+              </Title>
+            }
+          />
+          <Route
+            path="/event/:id"
+            element={
+              <Title title="Wydarzenie">
+                <EventDetailsPage />
               </Title>
             }
           />

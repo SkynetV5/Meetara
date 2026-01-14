@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ParticipationRepository extends JpaRepository<Participation,Long> {
 
     Optional<Participation> findByUserId(Long userId);
-    Optional<Participation> findByEventId(Long eventId);
+    List<Participation> findByEventId(Long eventId);
 
     Optional<Participation> findByStatus(Participation.Status status);
 

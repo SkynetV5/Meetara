@@ -1,5 +1,6 @@
 package com.metara.metara.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -18,6 +19,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name="event_id")
+    @JsonIgnore
     private Event event;
 
     @ManyToOne

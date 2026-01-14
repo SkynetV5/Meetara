@@ -176,6 +176,7 @@ export default function EventsPage() {
             const idsArray = Array.from(selection.ids);
             setSelectedEventIds(idsArray);
           }}
+          onRowClick={(params) => navigate(`/event/${params.id}`)}
         />
       </Paper>
     </Container>
