@@ -123,6 +123,8 @@ import type {
   GetParticipationsByRegisteredAtAfterParams,
   GetParticipationsByRegisteredAtBefore400,
   GetParticipationsByRegisteredAtBeforeParams,
+  GetProfile200,
+  GetProfile400,
   GetProfileById200,
   GetProfileById400,
   GetProfileById404,
@@ -3682,6 +3684,93 @@ export function useGetAllProfiles<TData = Awaited<ReturnType<typeof getAllProfil
 
 
 
+export const getProfile = (
+    userId: number,
+ options?: SecondParameter<typeof axios>,signal?: AbortSignal
+) => {
+      
+      
+      return axios<GetProfile200>(
+      {url: `/api/profiles/userId/${userId}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetProfileQueryKey = (userId?: number,) => {
+    return [
+    `/api/profiles/userId/${userId}`
+    ] as const;
+    }
+
+    
+export const getGetProfileQueryOptions = <TData = Awaited<ReturnType<typeof getProfile>>, TError = GetProfile400>(userId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getProfile>>, TError, TData>>, request?: SecondParameter<typeof axios>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetProfileQueryKey(userId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getProfile>>> = ({ signal }) => getProfile(userId, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(userId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getProfile>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetProfileQueryResult = NonNullable<Awaited<ReturnType<typeof getProfile>>>
+export type GetProfileQueryError = GetProfile400
+
+
+export function useGetProfile<TData = Awaited<ReturnType<typeof getProfile>>, TError = GetProfile400>(
+ userId: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getProfile>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getProfile>>,
+          TError,
+          Awaited<ReturnType<typeof getProfile>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axios>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetProfile<TData = Awaited<ReturnType<typeof getProfile>>, TError = GetProfile400>(
+ userId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getProfile>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getProfile>>,
+          TError,
+          Awaited<ReturnType<typeof getProfile>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof axios>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetProfile<TData = Awaited<ReturnType<typeof getProfile>>, TError = GetProfile400>(
+ userId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getProfile>>, TError, TData>>, request?: SecondParameter<typeof axios>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetProfile<TData = Awaited<ReturnType<typeof getProfile>>, TError = GetProfile400>(
+ userId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getProfile>>, TError, TData>>, request?: SecondParameter<typeof axios>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetProfileQueryOptions(userId,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+
 export const getParticipationByUserId = (
     userId: number,
  options?: SecondParameter<typeof axios>,signal?: AbortSignal
@@ -4126,7 +4215,7 @@ export const getParticipationByEventId = (
 ) => {
       
       
-      return axios<Participation>(
+      return axios<Participation[]>(
       {url: `/api/participations/event/${eventId}`, method: 'GET', signal
     },
       options);

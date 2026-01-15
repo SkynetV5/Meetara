@@ -21,24 +21,14 @@ public class ProfileService {
     private UserRepository userRepository;
 
     // CREATE
-    public Profile createProfile(Profile profile){
-        if(profile.getUser() != null){
-            if (userRepository.existsByEmail(profile.getUser().getEmail())) {
-                throw new RuntimeException("Email already exists");
-            }
-            if (userRepository.existsByUsername(profile.getUser().getUsername())) {
-                throw new RuntimeException("Username already exists");
-            }
-        }
-
-        return profileRepository.save(profile);
+    public Profile createProfile(Profile profile){return profileRepository.save(profile);
     }
 
     // READ
 
-    public Optional<Profile> getProfileById(Long id) { return  profileRepository.findByUserId(id);}
+    public Optional<Profile> getProfileByUserId(Long userId) { return  profileRepository.findByUserId(userId);}
 
-    public Profile getProfileByIdOrThrow(Long id){return profileRepository.findByUserId(id).orElseThrow(() -> new RuntimeException("User not found with id" + id));}
+    public Profile getProfileByIdOrThrow(Long id){return profileRepository.findById(id).orElseThrow(() -> new RuntimeException("Profile not found with id" + id));}
 
     public List<Profile> getAllProfiles(){ return profileRepository.findAll();}
 

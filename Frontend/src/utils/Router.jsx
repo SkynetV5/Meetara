@@ -10,6 +10,7 @@ import AppLayout from "../layouts/AppLayout.jsx";
 import EventsPage from "../pages/EventsPage/EventsPage.jsx";
 import AddEventPage from "../pages/AddEventPage/AddEventPage.jsx";
 import EventDetailsPage from "../pages/EventDetailsPage/EventDetailsPage.jsx";
+import AccountPage from "../pages/AccountPage/AccountPage.js";
 export default function Router() {
   const { pathname } = useLocation();
   const ScrollOnTop = () => {
@@ -53,6 +54,14 @@ export default function Router() {
             element={
               <Title title="Wydarzenie">
                 <EventDetailsPage />
+              </Title>
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <Title title="Konto">
+                <AccountPage />
               </Title>
             }
           />

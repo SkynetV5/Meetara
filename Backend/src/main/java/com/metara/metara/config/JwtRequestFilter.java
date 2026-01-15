@@ -54,12 +54,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 return;
             }
         }
-        else{
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"error\": \"Token is invalid or expired\"}");
-            return;
-        }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);

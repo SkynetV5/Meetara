@@ -1,6 +1,7 @@
 package com.metara.metara.controller;
 
 import com.metara.metara.models.dto.ProfileDto;
+import com.metara.metara.models.entity.Event;
 import com.metara.metara.models.entity.Profile;
 import com.metara.metara.models.entity.User;
 import com.metara.metara.service.ProfileService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/profiles")
@@ -76,6 +78,12 @@ public class ProfileController {
         }
     }
 
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity<?> getProfile(@Parameter(description = "Profile ID") @PathVariable Long userId){
+        Optional<Profile> profile = profileService.getProfileByUserId(userId);
+        return profile.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
     @Operation(summary = "Update profile", description = "Updates profile information")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Profile updated successfully"),

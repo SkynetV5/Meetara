@@ -28,10 +28,25 @@ export interface Profile {
   user?: User;
 }
 
+export type ParticipationStatus = typeof ParticipationStatus[keyof typeof ParticipationStatus];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ParticipationStatus = {
+  REGISTERED: 'REGISTERED',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+export interface Participation {
+  id?: number;
+  user?: User;
+  status?: ParticipationStatus;
+  registeredAt?: string;
+}
+
 export interface Comment {
   text?: string;
   createdAt?: string;
-  event?: Event;
   user?: User;
   id?: number;
 }
@@ -44,23 +59,7 @@ export interface Event {
   location?: string;
   user?: User;
   comments?: Comment[];
-}
-
-export type ParticipationStatus = typeof ParticipationStatus[keyof typeof ParticipationStatus];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const ParticipationStatus = {
-  REGISTERED: 'REGISTERED',
-  CANCELLED: 'CANCELLED',
-} as const;
-
-export interface Participation {
-  id?: number;
-  event?: Event;
-  user?: User;
-  status?: ParticipationStatus;
-  registeredAt?: string;
+  participations?: Participation[];
 }
 
 /**
@@ -182,15 +181,15 @@ export interface Pageable {
 }
 
 export interface PageEvent {
-  totalPages?: number;
   totalElements?: number;
-  first?: boolean;
-  last?: boolean;
-  numberOfElements?: number;
+  totalPages?: number;
   size?: number;
   content?: Event[];
   number?: number;
   sort?: SortObject;
+  first?: boolean;
+  last?: boolean;
+  numberOfElements?: number;
   pageable?: PageableObject;
   empty?: boolean;
 }
@@ -200,8 +199,8 @@ export interface PageableObject {
   sort?: SortObject;
   pageNumber?: number;
   pageSize?: number;
-  unpaged?: boolean;
   paged?: boolean;
+  unpaged?: boolean;
 }
 
 export interface SortObject {
@@ -404,6 +403,10 @@ name: string;
 export type ExistsByName400 = {[key: string]: string};
 
 export type GetAllProfiles400 = {[key: string]: string};
+
+export type GetProfile200 = { [key: string]: unknown };
+
+export type GetProfile400 = {[key: string]: string};
 
 export type GetParticipationByUserId400 = {[key: string]: string};
 
